@@ -1,0 +1,26 @@
+<div class="product-list-container">
+  <h2>Catalogo Prodotti 🛒</h2>
+
+  <ng-container *ngIf="products$ | async as products">
+
+    <div *ngIf="products.length === 0" class="no-products">
+      Nessun prodotto disponibile al momento.
+    </div>
+
+    <div class="product-grid">
+      <div *ngFor="let product of products" class="product-card">
+        <img [src]="product.imageUrl || 'assets/placeholder.jpg'" alt="{{ product.name }}" class="product-image">
+        <div class="card-content">
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+          <div class="details">
+            <span class="price">{{ product.price | currency:'EUR':'symbol' }}</span>
+            <span class="stock" [class.low-stock]="product.stock < 5">
+              Disponibilità: {{ product.stock }} pz.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,19 @@
+<header class="gym-header">
+  <h1>{{ title() }}</h1>
+  <p>Benvenuto</p>
+
+  <nav>
+    <a routerLink="/products" routerLinkActive="active">Catalogo |</a>
+    <a routerLink="/login" routerLinkActive="active"> Login | </a>
+    <a routerLink="/register" routerLinkActive="active"> Registrati</a>
+  </nav>
+
+</header>
+
+<main class="gym-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="gym-footer">
+  &copy; {{ 2025}} GymSiteFE
+</footer>
