@@ -19,17 +19,10 @@ export class AuthService {
     );
   }
 
-  login(loginRequest: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, loginRequest)
+  login(req: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, req)
       .pipe(
-        tap(response => {
-          if (response && response.token) {
-            localStorage.setItem('auth_token', response.token);
-            localStorage.setItem('user_role', response.role);
-          } else {
-
-          }
-        })
+        tap((response: AuthResponse) => this.handleAuthentication(response))
       );
   }
 
@@ -38,7 +31,6 @@ export class AuthService {
       console.error("Autenticazione fallita: risposta mancante o incompleta dal server.");
       return;
     }
-
     localStorage.setItem('auth_token', response.token);
     localStorage.setItem('user_role', response.role);
   }

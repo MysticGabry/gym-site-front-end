@@ -50,19 +50,30 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(request).subscribe({
       next: (response) => {
-        console.log("RISPOSTA DAL SERVER:", response);
 
-        if (response && response.token && response.role) {
-          this.router.navigate(['/products']);
+        if (!response || !response.token || !response.role) {
+          this.errorMessage = 'Risposta incompleta dal server.';
+          return;
+        }
+
+        // Salva token e ruolo
+        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('user_role', response.role);
+
+        console.log("LOGIN ROLE:", response.role);
+
+        // 🔥 REDIRECT BASATO SUL RUOLO
+        if (response.role === 'ADMIN' || response.role === 'ROLE_ADMIN') {
+          this.router.navigate(['/admin']);
         } else {
-          this.errorMessage = 'Login fallito: risposta incompleta dal server.';
+          this.router.navigate(['/products']);
         }
       },
+
       error: (err) => {
-        console.error("ERRORE DAL SERVER:", err);
-        this.errorMessage = "Errore durante il login.";
+        this.errorMessage = 'Credenziali errate o server non raggiungibile.';
+        console.error(err);
       }
     });
-
   }
 }

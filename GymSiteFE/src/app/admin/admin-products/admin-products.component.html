@@ -1,0 +1,45 @@
+<div class="admin-container">
+
+  <h2>Gestione Prodotti</h2>
+
+  <button class="create-btn" routerLink="/admin/products/new">➕ Aggiungi Prodotto</button>
+
+  <table class="product-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Immagine</th>
+      <th>Nome</th>
+      <th>Prezzo</th>
+      <th>Stock</th>
+      <th>Azioni</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let p of products">
+      <td>{{ p.id }}</td>
+
+      <td>
+        <img [src]="p.imageUrl" alt="img" class="thumbnail">
+      </td>
+
+      <td>{{ p.name }}</td>
+      <td>{{ p.price | currency:'EUR' }}</td>
+      <td>{{ p.stock }}</td>
+
+      <td>
+        <button class="edit-btn" [routerLink]="['/admin/products/edit', p.id]">
+          ✏️ Modifica
+        </button>
+
+        <button class="delete-btn" (click)="deleteProduct(p.id)">
+          🗑️ Elimina
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>

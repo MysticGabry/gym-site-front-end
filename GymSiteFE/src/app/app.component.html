@@ -1,25 +1,56 @@
 <header class="gym-header">
   <nav class="navbar">
-    <a routerLink="/" class="navbar-brand">
+
+    <!-- LOGO — reindirizza in base al ruolo -->
+    <a (click)="goHome()" class="navbar-brand" style="cursor:pointer;">
       <h1>{{ title }}</h1>
     </a>
 
     <div class="navbar-links">
-      <a routerLink="/products" routerLinkActive="active">Prodotti</a>
 
+      <!-- SOLO UTENTE NORMALE vede Prodotti -->
+      <a *ngIf="!authService.isAdmin"
+         routerLink="/products"
+         routerLinkActive="active">
+        Prodotti
+      </a>
+
+      <!-- SOLO ADMIN vede Dashboard Admin -->
+      <a *ngIf="authService.isAdmin"
+         routerLink="/admin"
+         routerLinkActive="active">
+        🛠️ Dashboard Admin
+      </a>
+
+      <!-- SEZIONE ACCOUNT -->
       <div class="user-auth-section">
+
+        <!-- SE LOGGATO MOSTRA DROPDOWN ACCOUNT -->
         <div *ngIf="authService.isLoggedIn" class="dropdown">
           <button class="dropbtn">
             👤 Account
           </button>
-          <div class="dropdown-content">
-            <a routerLink="/profile">Profilo</a>
-            <a routerLink="/orders">I Miei Ordini</a>
 
+          <div class="dropdown-content">
+
+            <!-- Link utente normale -->
+            <a *ngIf="!authService.isAdmin" routerLink="/profile">Profilo</a>
+            <a *ngIf="!authService.isAdmin" routerLink="/orders">I Miei Ordini</a>
+
+            <!-- LINK ADMIN -->
             <ng-container *ngIf="authService.isAdmin">
               <hr>
-              <a routerLink="/admin/products" routerLinkActive="active" class="admin-link">🛠️ Gestione Prodotti</a>
-              <a routerLink="/admin/users" routerLinkActive="active" class="admin-link">Gestione Utenti</a>
+              <a routerLink="/admin/products"
+                 routerLinkActive="active"
+                 class="admin-link">
+                Gestione Prodotti
+              </a>
+
+              <a routerLink="/admin/users"
+                 routerLinkActive="active"
+                 class="admin-link">
+                Gestione Utenti
+              </a>
             </ng-container>
 
             <hr>
@@ -27,6 +58,7 @@
           </div>
         </div>
 
+        <!-- SE NON LOGGATO MOSTRA LOGIN & REGISTRATI -->
         <ng-container *ngIf="!authService.isLoggedIn">
           <a routerLink="/login" routerLinkActive="active">Login</a>
           <a routerLink="/register" routerLinkActive="active">Registrati</a>
@@ -34,8 +66,10 @@
 
       </div>
     </div>
+
   </nav>
 </header>
+
 
 <main class="gym-content">
   <router-outlet></router-outlet>

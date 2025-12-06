@@ -1,9 +1,8 @@
-// Basato sull'entità Product del tuo BE
-export interface Product {
+export interface Product{
   id: number;
   name: string;
   description: string;
-  price: number; // Mappatura da Double
-  stock: number; // Mappatura da Integer
+  price: number;
+  stock: number;
   imageUrl: string;
 }

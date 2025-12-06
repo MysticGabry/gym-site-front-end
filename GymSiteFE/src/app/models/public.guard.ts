@@ -4,13 +4,18 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class PublicGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
   canActivate(): boolean {
     const role = localStorage.getItem('user_role');
 
-      return true;
+    if (role === 'ROLE_ADMIN') {
+      this.router.navigate(['/admin']);
+      return false;
+    }
+
+    return true;
   }
 }

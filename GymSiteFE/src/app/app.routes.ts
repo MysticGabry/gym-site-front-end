@@ -1,33 +1,29 @@
-import {Routes} from '@angular/router';
-import {ProductListComponent} from './components/product-list/product-list.component';
-import {LoginComponent} from './components/auth/login/login.component';
-import {RegisterComponent} from './components/auth/register/register.component';
-import {adminGuard} from './guards/admin.guard';
-
-// 1. IMPORTA IL COMPONENTE PLACEHOLDER
-import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { Routes } from '@angular/router';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { AdminGuard } from './guards/admin.guard';
+import { PublicGuard } from './models/public.guard';
+import { ADMIN_ROUTES } from './admin/admin.routes';
 
 export const routes: Routes = [
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
 
-  // ROTTE PUBBLICHE
-  {path: 'products', component: ProductListComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
 
   {
-    path: 'admin/products',
-    // 2. AGGIUNGI IL COMPONENTE PLACEHOLDER
-    component: PlaceholderComponent, // <<< CORREZIONE
-    canActivate: [adminGuard]
-  },
-  {
-    path: 'admin/users',
-    // 3. AGGIUNGI IL COMPONENTE PLACEHOLDER
-    component: PlaceholderComponent, // <<< CORREZIONE
-    canActivate: [adminGuard]
+    path: 'products',
+    component: ProductListComponent,
+    canActivate: [PublicGuard]
   },
 
-  // Wildcard (catch-all)
-  {path: '**', redirectTo: '/products'},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    children: ADMIN_ROUTES
+  },
+
+  { path: '**', redirectTo: 'products' }
 ];
