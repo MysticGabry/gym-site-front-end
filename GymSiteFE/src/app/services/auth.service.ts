@@ -22,12 +22,24 @@ export class AuthService {
   login(loginRequest: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/login`, loginRequest)
       .pipe(
-        tap(response => this.handleAuthentication(response))
+        tap(response => {
+          if (response && response.token) {
+            localStorage.setItem('auth_token', response.token);
+            localStorage.setItem('user_role', response.role);
+          } else {
+
+          }
+        })
       );
   }
 
-  private handleAuthentication(response: AuthResponse): void {
-    localStorage.setItem(this.TOKEN_KEY, response.token);
+  private handleAuthentication(response: AuthResponse | null): void {
+    if (!response || !response.token || !response.role) {
+      console.error("Autenticazione fallita: risposta mancante o incompleta dal server.");
+      return;
+    }
+
+    localStorage.setItem('auth_token', response.token);
     localStorage.setItem('user_role', response.role);
   }
 
@@ -44,13 +56,11 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  // VERSIONE CORRETTA COME GETTER (NON HA PIÙ LE PARENTESI NEL TEMPLATE)
   get isAdmin(): boolean {
     const role = localStorage.getItem('user_role');
     return role === 'ROLE_ADMIN';
   }
 
-  // VERSIONE CORRETTA COME GETTER (NON HA PIÙ LE PARENTESI NEL TEMPLATE)
   get isLoggedIn(): boolean {
     return !!localStorage.getItem(this.TOKEN_KEY);
   }

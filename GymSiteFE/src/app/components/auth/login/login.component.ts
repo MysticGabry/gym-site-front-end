@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
-import { LoginRequest } from '../../../models/auth.model';
+import {Component, OnInit, inject} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
+import {LoginRequest} from '../../../models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
+
   onSubmit(): void {
     this.errorMessage = null;
 
@@ -49,13 +50,19 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(request).subscribe({
       next: (response) => {
-        this.router.navigate(['/products']);
-        console.log('Login riuscito! Token:', response.token);
+        console.log("RISPOSTA DAL SERVER:", response);
+
+        if (response && response.token && response.role) {
+          this.router.navigate(['/products']);
+        } else {
+          this.errorMessage = 'Login fallito: risposta incompleta dal server.';
+        }
       },
       error: (err) => {
-        this.errorMessage = 'Credenziali non valide. Riprova.';
-        console.error('Errore di login:', err);
+        console.error("ERRORE DAL SERVER:", err);
+        this.errorMessage = "Errore durante il login.";
       }
     });
+
   }
 }
