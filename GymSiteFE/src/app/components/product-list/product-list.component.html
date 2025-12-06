@@ -1,26 +1,44 @@
-<div class="product-list-container">
-  <h2>Catalogo Prodotti 🛒</h2>
+<div class="product-catalog-header">
+  <h2>Catalogo Prodotti</h2>
+</div>
 
-  <ng-container *ngIf="products$ | async as products">
+<div *ngIf="products$ | async as products; else loadingOrError">
 
-    <div *ngIf="products.length === 0" class="no-products">
-      Nessun prodotto disponibile al momento.
-    </div>
+  <div *ngIf="products.length > 0; else noProductsFound">
 
     <div class="product-grid">
-      <div *ngFor="let product of products" class="product-card">
-        <img [src]="product.imageUrl || 'assets/placeholder.jpg'" alt="{{ product.name }}" class="product-image">
-        <div class="card-content">
-          <h3>{{ product.name }}</h3>
-          <p class="description">{{ product.description }}</p>
-          <div class="details">
-            <span class="price">{{ product.price | currency:'EUR':'symbol' }}</span>
-            <span class="stock" [class.low-stock]="product.stock < 5">
-              Disponibilità: {{ product.stock }} pz.
-            </span>
+
+      <div class="product-card" *ngFor="let product of products">
+
+        <div class="product-image-container">
+          <img [src]="product.imageUrl || 'assets/placeholder.jpg'" [alt]="product.name">
+        </div>
+
+        <div class="product-details">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+
+          <div class="product-footer">
+            <span class="product-price">€ {{ product.price | number:'1.2-2' }}</span>
+            <span class="product-availability">Disponibilità: {{ product.stock || 0 }} pz.</span>
           </div>
+
+
         </div>
       </div>
+
     </div>
-  </ng-container>
+  </div>
+
 </div>
+
+<ng-template #loadingOrError>
+  <p *ngIf="!(products$ | async)">Caricamento prodotti in corso...</p>
+</ng-template>
+
+<ng-template #noProductsFound>
+  <div class="no-products">
+    <h3>Nessun prodotto trovato.</h3>
+    <p>Riprova più tardi o contatta l'amministratore per aggiungere articoli.</p>
+  </div>
+</ng-template>

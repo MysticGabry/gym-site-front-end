@@ -9,7 +9,12 @@ export interface LoginRequest {
   password: string;
 }
 
-// Response dopo Login/Register (contiene il JWT)
+export interface AuthRequest {
+  email?: string;
+  password?: string;
+}
+
 export interface AuthResponse {
   token: string;
+  role: string;
 }

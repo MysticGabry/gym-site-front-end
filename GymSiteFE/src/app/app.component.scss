@@ -1,0 +1,170 @@
+
+// Colori
+$primary-color: #1a1a1a; // Antracite (Sfondo scuro)
+$secondary-color: #0cee56; // Blu Elettrico (Colore accento moderno)
+$text-light: #ffffff; // Testo chiaro
+$card-bg: #282828; // Sfondo delle schede leggermente più chiaro
+$shadow-light: rgba(0, 0, 0, 0.5); // Ombra leggera per le card
+
+// Spaziatura e bordi
+$spacing-unit: 1rem;
+$border-radius: 0.5rem;
+$transition-speed: 0.3s;
+
+// Stile Base del Corpo
+:host, body {
+  // Nota: in un componente Angular, è meglio usare :host se possibile,
+  // ma `body` è utile se questo è il file di stile globale.
+  background-color: $primary-color;
+  color: $secondary-color;
+  font-family: 'Arial', sans-serif; // Suggerisco 'Montserrat' o 'Roboto' per un look più moderno se li importi!
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+// Stile Link Base
+a {
+  color: $secondary-color;
+  text-decoration: none;
+  transition: color $transition-speed;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+
+// ===================================
+// 🔝 TESTATA (HEADER)
+// ===================================
+
+.gym-header {
+  background-color: $primary-color;
+  box-shadow: 0 4px 12px $shadow-light; // Ombra per dare profondità
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-unit * 1.5 $spacing-unit * 2;
+  max-width: 1400px; // Aumentato leggermente
+  margin: 0 auto;
+}
+
+.navbar-brand h1 {
+  color: $secondary-color; // Logo in Blu Elettrico
+  font-size: 1.8rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-right: $spacing-unit * 1.5;
+    font-weight: 600;
+    padding: 5px 0;
+
+    &.active {
+      color: $secondary-color;
+      border-bottom: 2px solid $secondary-color;
+    }
+  }
+}
+
+// Sezione di Autenticazione (Login/Registrati/Account)
+.user-auth-section {
+  display: flex;
+  align-items: center;
+
+  // Stile generale per Login e Registrati
+  & > ng-container > a {
+    margin-left: $spacing-unit;
+    padding: 8px 15px;
+    border-radius: $border-radius;
+    font-weight: 500;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: $spacing-unit;
+
+  .dropbtn {
+    background-color: transparent;
+    color: $text-light;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: 1px solid $secondary-color; // Bordo di accento
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: all $transition-speed;
+
+    &:hover {
+      background-color: $secondary-color;
+      color: $primary-color; // Testo scuro sull'accento
+    }
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: $card-bg;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 $shadow-light;
+    z-index: 100;
+    border-radius: $border-radius;
+    padding: 5px 0;
+    overflow: hidden; // Per rispettare il border-radius
+
+    a {
+      color: $text-light;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      margin: 0;
+
+      &:hover {
+        background-color: lighten($card-bg, 5%);
+        color: $secondary-color;
+      }
+      &.admin-link {
+        font-weight: bold;
+        color: $secondary-color;
+      }
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background-color: lighten($card-bg, 10%);
+      margin: 5px 0;
+    }
+  }
+
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+.gym-content {
+  padding: $spacing-unit * 2 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gym-footer {
+  background-color: darken($primary-color, 5%);
+  text-align: center;
+  padding: $spacing-unit;
+  border-top: 1px solid $card-bg;
+  font-size: 0.9rem;
+  color: rgba($text-light, 0.7);
+}

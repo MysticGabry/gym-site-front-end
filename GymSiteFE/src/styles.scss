@@ -1,1 +1,178 @@
-/* You can add global styles to this file, and also import other style files */
+// File: _variables.scss (se usi l'import) o inizio del tuo style.scss
+
+// Colori
+$primary-color: #1a1a1a; // Sfondo scuro per il corpo e l'header
+$secondary-color: #0cee56; // Blu Elettrico (colore accento moderno)
+$text-light: #ffffff; // Testo chiaro
+$text-dark: #333333; // Testo scuro
+$card-bg: #282828; // Sfondo delle schede leggermente più chiaro dello sfondo
+$shadow-light: rgba(0, 0, 0, 0.5); // Ombra leggera per le card
+
+// Spaziatura e bordi
+$spacing-unit: 1rem;
+$border-radius: 0.5rem;
+$transition-speed: 0.3s;
+
+// Stile Base
+body {
+  background-color: $primary-color;
+  color: $text-light;
+  font-family: 'Arial', sans-serif; // O un font moderno come 'Montserrat', se lo importi
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+// Stile Link Base
+a {
+  color: $text-light;
+  text-decoration: none;
+  transition: color $transition-speed;
+
+
+  // Stile della Testata e Navigazione
+  .gym-header {
+    background-color: $primary-color;
+    box-shadow: 0 4px 12px $shadow-light; // Ombra per dare profondità
+    position: sticky; // Fissa l'header in alto
+    top: 0;
+    z-index: 1000;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-unit * 1.5 $spacing-unit * 2;
+    max-width: 1200px; // Centra il contenuto del menu
+    margin: 0 auto;
+  }
+
+  .navbar-brand h1 {
+    color: $secondary-color; // Logo in Blu Elettrico
+    font-size: 1.8rem;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-links > a {
+    margin-right: $spacing-unit * 1.5;
+    font-weight: 600;
+
+    &.active {
+      color: $secondary-color;
+      border-bottom: 2px solid $secondary-color;
+      padding-bottom: 3px;
+    }
+  }
+
+  // Stile per la sezione Login/Registrati/Account
+  .user-auth-section {
+    display: flex;
+    align-items: center;
+
+    a {
+      margin-left: $spacing-unit;
+      padding: 8px 15px;
+      border-radius: $border-radius;
+      // Rende "Registrati" un bottone evidenziato
+      &:last-child:not(.dropbtn) {
+        background-color: $secondary-color;
+        color: $text-light;
+        font-weight: bold;
+        transition: background-color $transition-speed;
+
+        &:hover {
+          background-color: darken($secondary-color, 10%);
+          color: $text-light; // Mantiene il testo bianco
+        }
+      }
+    }
+  }
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: $spacing-unit;
+
+  .dropbtn {
+    background-color: transparent;
+    color: $text-light;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: 1px solid $text-light;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: all $transition-speed;
+
+    &:hover {
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+  }
+
+  .dropdown-content {
+    display: none; // Nascosto di default
+    position: absolute;
+    right: 0;
+    background-color: $card-bg;
+    min-width: 180px;
+    box-shadow: 0 8px 16px 0 $shadow-light;
+    z-index: 1;
+    border-radius: $border-radius;
+    padding: 5px 0;
+
+    a {
+      color: $text-light;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      margin: 0; // Rimuove il margine dei link normali
+
+      &:hover {
+        background-color: lighten($card-bg, 5%);
+        color: $secondary-color;
+      }
+      &.admin-link {
+        font-weight: bold;
+      }
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background-color: lighten($card-bg, 10%);
+      margin: 5px 0;
+    }
+  }
+
+  // Mostra il menu a tendina quando l'utente passa il mouse
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+// Contenuto principale
+.gym-content {
+  padding: $spacing-unit * 2 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Footer
+.gym-footer {
+  background-color: darken($primary-color, 5%);
+  text-align: center;
+  padding: $spacing-unit;
+  border-top: 1px solid $card-bg;
+  font-size: 0.9rem;
+  color: rgba($text-light, 0.7);
+}
