@@ -1,67 +1,115 @@
-.admin-container {
-  padding: 20px;
-  color: white;
+$primary-color: #4CAF50; // Verde per le azioni positive (es. Aggiungi)
+$danger-color: #DC3545;  // Rosso per le azioni distruttive (es. Elimina)
+$info-color: #007BFF;    // Blu per le azioni neutre/modifica
+$text-color: #E0E0E0;    // Testo chiaro su sfondo scuro
+$bg-dark: #333333;       // Sfondo scuro della pagina
+$bg-light: #444444;      // Sfondo leggermente più chiaro per gli elementi
+
+:host {
+  display: block;
+  padding: 30px;
+  color: $text-color;
+  background-color: $bg-dark; // Sfondo scuro come nel tuo screenshot
 }
 
+h2 {
+  color: $text-color;
+  margin-bottom: 25px;
+  border-bottom: 2px solid $bg-light;
+  padding-bottom: 10px;
+}
+
+.create-btn {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 25px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 8%);
+  }
+}
+
+/* --- Tabella Principale (product-table) --- */
 .product-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); // Ombra per farla risaltare
 
   th, td {
-    border-bottom: 1px solid #333;
-    padding: 10px;
+    padding: 15px 10px;
     text-align: left;
+    border-bottom: 1px solid $bg-light;
+    vertical-align: middle;
+    font-size: 0.95em;
   }
 
-  th {
-    color: #00ff66;
+  /* Intestazioni */
+  thead th {
+    background-color: $bg-light;
+    color: $text-color;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Righe del corpo */
+  tbody tr:hover {
+    background-color: rgba($bg-light, 0.5);
   }
 }
 
+/* Immagini Miniature (thumbnail) */
 .thumbnail {
-  width: 60px;
+  width: 60px;  // Dimensione fissa piccola
   height: 60px;
-  object-fit: cover;
-  border-radius: 6px;
+  object-fit: cover; // Importante: ritaglia l'immagine senza distorcerla
+  border-radius: 4px;
+  border: 1px solid rgba($text-color, 0.1);
 }
 
+/* --- Colonna Azioni (Contiene i pulsanti) --- */
+.product-table td:last-child {
+  display: flex;
+  gap: 8px; /* Spazio tra i pulsanti Modifica ed Elimina */
+  align-items: center;
+  min-width: 150px; /* Assicura spazio sufficiente per i due pulsanti */
+}
+
+/* --- Pulsanti di Azione --- */
+
+// Pulsante Modifica
 .edit-btn {
-  background-color: #0275d8;
+  background-color: $info-color;
   color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
   border: none;
-  margin-right: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 0.85em;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #025aa5;
+    background-color: darken($info-color, 8%);
   }
 }
 
 .delete-btn {
-  background-color: #d9534f;
+  background-color: $danger-color;
   color: white;
-  padding: 6px 12px;
+  border: none;
+  padding: 8px 12px;
   border-radius: 4px;
-  border: none;
   cursor: pointer;
+  font-size: 0.85em;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #c9302c;
-  }
-}
-
-.create-btn {
-  background-color: #00cc44;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #009933;
+    background-color: darken($danger-color, 8%);
   }
 }

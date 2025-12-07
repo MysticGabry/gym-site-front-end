@@ -1,47 +1,46 @@
-import {Injectable} from '@angular/core';
-import {
-    HttpRequest,
-    HttpHandler,
-    HttpEvent,
-    HttpInterceptor,
-    HttpErrorResponse
-} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import { HttpInterceptorFn, HttpErrorResponse, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { catchError, throwError } from 'rxjs';
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) {
+  const router = inject(Router);
+  const authService = inject(AuthService);
+
+  const token = authService.getToken();
+
+  // Se non c'è token non fa niente
+  if (!token) {
+    return next(req);
+  }
+
+  // Evita di intercettare asset locali
+  if (req.url.includes('/assets/')) {
+    return next(req);
+  }
+
+  // Evita di intercettare la login
+  if (req.url.includes('/auth/login')) {
+    return next(req);
+  }
+
+  // Clona la richiesta con il token
+  const authReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`
     }
+  });
 
-    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-        const token = this.authService.getToken();
-        if (token) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        }
-        return next.handle(request).pipe(
-            catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
-                    console.warn('Token scaduto o non valido. Forza il logout.');
-                    this.authService.logout();
-                    this.router.navigate(['/login']);
-
-                    return throwError(() => error);
-                }
-
-                return throwError(() => error);
-            })
-        );
-    }
-}
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        console.warn('Token scaduto o non valido.');
+        authService.logout();
+        router.navigate(['/login']);
+      }
+      return throwError(() => error);
+    })
+  );
+};

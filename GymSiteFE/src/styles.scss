@@ -80,7 +80,6 @@ a {
       margin-left: $spacing-unit;
       padding: 8px 15px;
       border-radius: $border-radius;
-      // Rende "Registrati" un bottone evidenziato
       &:last-child:not(.dropbtn) {
         background-color: $secondary-color;
         color: $text-light;
@@ -89,7 +88,7 @@ a {
 
         &:hover {
           background-color: darken($secondary-color, 10%);
-          color: $text-light; // Mantiene il testo bianco
+          color: $text-light;
         }
       }
     }

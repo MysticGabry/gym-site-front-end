@@ -1,0 +1,16 @@
+<h2>Pagamento</h2>
+
+<div *ngIf="!success; else done">
+
+  <p>Totale da pagare: {{ cartService.getTotal() | currency }}</p>
+
+  <button (click)="confirmPayment()" [disabled]="processing">
+    {{ processing ? 'Elaborazione...' : 'Paga ora' }}
+  </button>
+
+</div>
+
+<ng-template #done>
+  <h3>Pagamento completato!</h3>
+  <p>Stai venendo reindirizzato al catalogo...</p>
+</ng-template>

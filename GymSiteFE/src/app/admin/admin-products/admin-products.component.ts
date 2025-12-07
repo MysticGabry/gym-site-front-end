@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
@@ -9,34 +9,32 @@ import { Product } from '../../models/product.model';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './admin-products.component.html',
-  styleUrl: './admin-products.component.scss'
+  styleUrls: ['./admin-products.component.scss']
 })
 export class AdminProductsComponent implements OnInit {
 
-  products: Product[] = [];
+  products = signal<Product[]>([]);
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.productService.getAll().subscribe({
-      next: (data: Product[]) => this.products = data
-
+      next: (data) => {
+        console.log("Dati ricevuti dal servizio:", data);
+        this.products.set(data);
+      },
+      error: (err) => console.error(err)
     });
   }
 
   deleteProduct(id: number): void {
-    if (!confirm('Sei sicuro di voler rimuovere questo prodotto?')) {
-      return;
-    }
+    if (!confirm('Sei sicuro di voler rimuovere questo prodotto?')) return;
 
     this.productService.deleteProduct(id).subscribe({
       next: () => {
-        this.products = this.products.filter(p => p.id !== id);
+        this.products.update(list => list.filter(p => p.id !== id));
       },
-      error: (err) => {
-        console.error('Errore durante l’eliminazione:', err);
-      }
+      error: (err) => console.error(err)
     });
   }
-
 }

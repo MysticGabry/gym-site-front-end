@@ -1,10 +1,6 @@
-/* ----------------------------------------------------
-   File: admin-product-form.component.scss
-   Stili per il modulo di aggiunta/modifica prodotto
-   ---------------------------------------------------- */
 
 :host {
-  display: block; // Permette di applicare stili al componente host se necessario
+  display: block;
   padding: 20px;
   background-color: #f8f9fa; // Sfondo leggero
   border-radius: 8px;
@@ -65,7 +61,7 @@ input[type="number"] {
 
 /* Stile per l'input Immagine */
 input[formControlName="imageUrl"] {
-  grid-column: span 1; // O usa '1 / -1' se vuoi che occupi tutta la larghezza
+  grid-column: span 1;
 }
 
 /* Stile per l'Anteprima Immagine */
@@ -74,20 +70,20 @@ input[formControlName="imageUrl"] {
   max-height: 200px;
   width: auto;
   height: auto;
-  display: block; // Rimuove lo spazio extra sotto l'immagine
+  display: block;
   border: 1px solid #ced4da;
   border-radius: 4px;
   object-fit: contain;
   margin-top: 10px;
   margin-bottom: 20px;
-  grid-column: 1 / -1; // Occupa tutta la larghezza per centralizzare, se necessario
+  grid-column: 1 / -1;
 }
 
 /* Stile del pulsante Salva */
 button[type="submit"] {
   grid-column: 1 / -1; // Occupa tutta la larghezza alla fine del form
-  background-color: #28a745; // Verde per l'azione di salvataggio
-  color: white;
+  background-color: #4CAF50; // Verde per l'azione di salvataggio
+  color: lightgray;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -98,7 +94,7 @@ button[type="submit"] {
   margin-top: 10px;
 
   &:hover {
-    background-color: #218838; // Verde scuro al passaggio del mouse
+    background-color: #4CAF50; // Verde scuro al passaggio del mouse
   }
 
   &:disabled {
@@ -107,7 +103,6 @@ button[type="submit"] {
   }
 }
 
-/* Regola per schermi piccoli: tutti gli elementi su singola colonna */
 @media (max-width: 768px) {
   form {
     grid-template-columns: 1fr;

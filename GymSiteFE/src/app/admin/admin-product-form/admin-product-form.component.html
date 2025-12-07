@@ -1,9 +1,9 @@
-<h2>➕ Aggiungi Prodotto</h2>
+<h2>{{ isEdit ? '✏️ Modifica Prodotto' : '➕ Aggiungi Prodotto' }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="saveProduct()">
 
   <label>Nome</label>
-  <input formControlName="name">
+  <input type="text" formControlName="name">
 
   <label>Descrizione</label>
   <textarea formControlName="description"></textarea>
@@ -14,11 +14,16 @@
   <label>Stock</label>
   <input type="number" formControlName="stock">
 
-  <label>Immagine</label>
-  <input type="imageUrl" formControlName="imageUrl">
+  <label>Immagine (URL)</label>
+  <input type="text" formControlName="imageUrl">
 
-  <!-- Preview -->
-  <img *ngIf="preview" [src]="preview" class="preview-img">
+  <!-- Preview immagine -->
+  <img *ngIf="form.value.imageUrl"
+       [src]="form.value.imageUrl"
+       class="preview-img" />
 
-  <button type="submit">Salva</button>
+  <button type="submit" [disabled]="form.invalid">
+    {{ isEdit ? 'Aggiorna' : 'Crea' }}
+  </button>
+
 </form>

@@ -1,6 +1,6 @@
 <div class="admin-container">
 
-  <h2>Gestione Prodotti</h2>
+  <h2>Gestione Prodotti ({{ products().length }})</h2>
 
   <button class="create-btn" routerLink="/admin/products/new">➕ Aggiungi Prodotto</button>
 
@@ -17,11 +17,11 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let p of products">
+    <tr *ngFor="let p of products()">
       <td>{{ p.id }}</td>
 
       <td>
-        <img [src]="p.imageUrl" alt="img" class="thumbnail">
+        <img [src]="p.imageUrl" alt="Immagine prodotto" class="thumbnail">
       </td>
 
       <td>{{ p.name }}</td>
@@ -37,7 +37,6 @@
           🗑️ Elimina
         </button>
       </td>
-
     </tr>
     </tbody>
   </table>

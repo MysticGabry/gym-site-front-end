@@ -1,0 +1,51 @@
+<h2 class="cart-title">Il tuo carrello</h2>
+
+<div *ngIf="(cartService.items$ | async) as cartItems">
+
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+
+    <div class="cart-container">
+
+      <!-- LISTA PRODOTTI -->
+      <div class="cart-item" *ngFor="let item of cartItems">
+
+        <img class="item-image" [src]="item.product.imageUrl || 'assets/placeholder.jpg'">
+
+        <div class="item-info">
+          <h3>{{ item.product.name }}</h3>
+          <p class="item-desc">{{ item.product.description }}</p>
+
+          <p class="item-qty">Quantità: {{ item.quantity }}</p>
+          <p class="item-price">Prezzo: {{ item.product.price | currency:'EUR' }}</p>
+        </div>
+
+        <button class="btn-remove" (click)="removeItem(item.product.id)">Rimuovi</button>
+      </div>
+
+    </div>
+
+    <!-- ⭐ SVUOTA CARRELLO SUBITO DOPO I PRODOTTI -->
+    <div class="clear-container">
+      <button class="btn-clear" (click)="clear()">Svuota carrello</button>
+    </div>
+
+    <!-- LINEA -->
+    <hr class="divider">
+
+    <!-- RIEPILOGO -->
+    <div class="cart-summary">
+      <h3 class="total">Totale: {{ cartService.getTotal() | currency:'EUR' }}</h3>
+
+      <div class="actions">
+        <button routerLink="/checkout" class="btn-checkout">Procedi al pagamento</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SE VUOTO -->
+  <ng-template #emptyCart>
+    <p class="empty">Il carrello è vuoto.</p>
+  </ng-template>
+
+</div>

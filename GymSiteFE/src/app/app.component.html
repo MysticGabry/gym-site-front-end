@@ -1,80 +1,47 @@
-<header class="gym-header">
-  <nav class="navbar">
+<nav class="navbar" *ngIf="showNavbar">
 
-    <!-- LOGO — reindirizza in base al ruolo -->
-    <a (click)="goHome()" class="navbar-brand" style="cursor:pointer;">
-      <h1>{{ title }}</h1>
+  <!-- LOGO -->
+  <div class="nav-left">
+    <a routerLink="/" class="logo">GymSite</a>
+  </div>
+
+  <div class="nav-right">
+
+    <!-- LINK PRODOTTI SOLO SE NON È ADMIN -->
+    <a *ngIf="!authService.isAdmin"
+       routerLink="/products"
+       routerLinkActive="active-link"
+       class="nav-item">
+      Prodotti
     </a>
 
-    <div class="navbar-links">
+    <!-- AREA ADMIN SOLO PER ADMIN -->
+    <a *ngIf="authService.isAdmin"
+       routerLink="/admin"
+       routerLinkActive="active-link"
+       class="nav-item admin-link">
+      Area Admin
+    </a>
 
-      <!-- SOLO UTENTE NORMALE vede Prodotti -->
-      <a *ngIf="!authService.isAdmin"
-         routerLink="/products"
-         routerLinkActive="active">
-        Prodotti
-      </a>
+    <!-- MENU UTENTE -->
+    <div class="user-menu" [class.open]="menuOpen">
+      <button (click)="toggleMenu()" class="user-btn">Account</button>
 
-      <!-- SOLO ADMIN vede Dashboard Admin -->
-      <a *ngIf="authService.isAdmin"
-         routerLink="/admin"
-         routerLinkActive="active">
-        🛠️ Dashboard Admin
-      </a>
-
-      <!-- SEZIONE ACCOUNT -->
-      <div class="user-auth-section">
-
-        <!-- SE LOGGATO MOSTRA DROPDOWN ACCOUNT -->
-        <div *ngIf="authService.isLoggedIn" class="dropdown">
-          <button class="dropbtn">
-            👤 Account
-          </button>
-
-          <div class="dropdown-content">
-
-            <!-- Link utente normale -->
-            <a *ngIf="!authService.isAdmin" routerLink="/profile">Profilo</a>
-            <a *ngIf="!authService.isAdmin" routerLink="/orders">I Miei Ordini</a>
-
-            <!-- LINK ADMIN -->
-            <ng-container *ngIf="authService.isAdmin">
-              <hr>
-              <a routerLink="/admin/products"
-                 routerLinkActive="active"
-                 class="admin-link">
-                Gestione Prodotti
-              </a>
-
-              <a routerLink="/admin/users"
-                 routerLinkActive="active"
-                 class="admin-link">
-                Gestione Utenti
-              </a>
-            </ng-container>
-
-            <hr>
-            <a (click)="onLogout()">Logout</a>
-          </div>
-        </div>
-
-        <!-- SE NON LOGGATO MOSTRA LOGIN & REGISTRATI -->
-        <ng-container *ngIf="!authService.isLoggedIn">
-          <a routerLink="/login" routerLinkActive="active">Login</a>
-          <a routerLink="/register" routerLinkActive="active">Registrati</a>
-        </ng-container>
-
+      <div class="dropdown" *ngIf="menuOpen">
+        <a routerLink="/profile" (click)="toggleMenu()">Profilo</a>
+        <button (click)="onLogout()">Logout</button>
       </div>
     </div>
 
-  </nav>
-</header>
+    <!-- CARRELLO SOLO PER UTENTI NORMALI -->
+    <button *ngIf="!authService.isAdmin"
+            class="cart-btn"
+            routerLink="/cart">
+      🛒
+      <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </button>
 
+  </div>
+</nav>
 
-<main class="gym-content">
-  <router-outlet></router-outlet>
-</main>
-
-<footer class="gym-footer">
-  &copy; {{ 2025 }} GymSite
-</footer>
+<router-outlet></router-outlet>

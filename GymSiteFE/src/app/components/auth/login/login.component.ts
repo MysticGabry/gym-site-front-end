@@ -1,18 +1,19 @@
 import {Component, OnInit, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {LoginRequest} from '../../../models/auth.model';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   loginForm!: FormGroup;
   errorMessage: string | null = null;
   hidePassword: boolean = true;
@@ -30,10 +31,6 @@ export class LoginComponent implements OnInit {
 
   get f() {
     return this.loginForm.controls;
-  }
-
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
   }
 
   onSubmit(): void {
@@ -56,13 +53,15 @@ export class LoginComponent implements OnInit {
           return;
         }
 
-        // Salva token e ruolo
         localStorage.setItem('auth_token', response.token);
         localStorage.setItem('user_role', response.role);
 
+        localStorage.setItem('user_id', response.username);
+
+        console.log("LOGIN USER:", response.username);
         console.log("LOGIN ROLE:", response.role);
 
-        // 🔥 REDIRECT BASATO SUL RUOLO
+        // Redireziona in base al ruolo
         if (response.role === 'ADMIN' || response.role === 'ROLE_ADMIN') {
           this.router.navigate(['/admin']);
         } else {

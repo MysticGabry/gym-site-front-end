@@ -1,0 +1,20 @@
+<div *ngIf="product" class="detail-container">
+
+  <h1>{{ product.name }}</h1>
+
+  <img [src]="product.imageUrl" class="detail-image" />
+
+  <div class="info">
+    <p><strong>Prezzo:</strong> {{ product.price | currency:'EUR' }}</p>
+    <p><strong>Disponibilità:</strong> {{ product.stock }}</p>
+  </div>
+
+  <p class="description">{{ product.description }}</p>
+
+  <!-- PULSANTI VISIBILI SOLO PER UTENTI NORMALI -->
+  <div class="actions" *ngIf="!authService.isAdmin">
+    <button class="btn-buy" (click)="buyNow(product)">Compra Subito</button>
+    <button class="btn-cart" (click)="addToCart(product)">Aggiungi al Carrello</button>
+  </div>
+
+</div>

@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import {Product} from '../../models/product.model';
-
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-admin-product-form',
@@ -13,53 +12,58 @@ import {Product} from '../../models/product.model';
   templateUrl: './admin-product-form.component.html',
   styleUrls: ['./admin-product-form.component.scss']
 })
-export class AdminProductFormComponent {
+export class AdminProductFormComponent implements OnInit {
 
-  private fb = inject(FormBuilder);
-  private productService = inject(ProductService);
-  private router = inject(Router);
+  form!: FormGroup;
+  productId: number | null = null;
+  isEdit = false;
 
-  preview: string | ArrayBuffer | null = null;
-  selectedFile: File | null = null;
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService
+  ) {}
 
-  form = this.fb.group({
-    name: ['', Validators.required],
-    description: ['', Validators.required],
-    price: [0, [Validators.required, Validators.min(0)]],
-    stock: [0, [Validators.required, Validators.min(0)]],
-    imageUrl: ['', Validators.required]
-  });
+  ngOnInit(): void {
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    this.selectedFile = file;
-
-    const reader = new FileReader();
-    reader.onload = () => this.preview = reader.result;
-    reader.readAsDataURL(file);
-  }
-
-  saveProduct() {
-    if (this.form.invalid) {
-      alert("Compila tutti i campi!");
-      return;
-    }
-
-    const productToCreate = {
-      name: this.form.value.name!,
-      description: this.form.value.description!,
-      price: this.form.value.price!,
-      stock: this.form.value.stock!,
-      imageUrl: this.form.value.imageUrl
-    } as Product;
-
-
-    this.productService.createProduct(productToCreate).subscribe({
-      next: () => this.router.navigate(['/admin/products']),
-      error: (err) => console.error(err)
+    // Inizializzo il form
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      price: [0, Validators.required],
+      stock: [0, Validators.required],
+      imageUrl: ['']
     });
 
+    // Controllo se sono in modalità EDIT
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.productId = Number(id);
+      this.isEdit = true;
+
+      // Carico il prodotto
+      this.productService.getProductById(this.productId).subscribe(p => {
+        this.form.patchValue(p);  // carica i valori nel form
+      });
+    }
+  }
+
+  saveProduct(): void {
+
+    const product: Product = this.form.value;
+
+    if (this.isEdit && this.productId) {
+      // MODIFICA
+      this.productService.updateProduct(this.productId, product).subscribe(() => {
+        this.router.navigate(['/admin/products']);
+      });
+    } else {
+      // CREAZIONE
+      this.productService.createProduct(product).subscribe(() => {
+        this.router.navigate(['/admin/products']);
+      });
+    }
   }
 }
