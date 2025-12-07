@@ -1,4 +1,4 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(request).subscribe({
       next: (response) => {
-
         if (!response || !response.token || !response.role) {
           this.errorMessage = 'Risposta incompleta dal server.';
           return;

@@ -26,7 +26,6 @@ export class AppComponent {
 
   constructor() {
 
-    // 🔥 NAVBAR: mostra solo se NON siamo in login/register
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -34,7 +33,6 @@ export class AppComponent {
         this.showNavbar = !(url.includes('/login') || url.includes('/register'));
       });
 
-    // 🔥 Conta elementi del carrello
     this.cartService.items$.subscribe(items => {
       this.cartCount = items.reduce((sum, i) => sum + i.quantity, 0);
     });
