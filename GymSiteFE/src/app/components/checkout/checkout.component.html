@@ -1,16 +1,29 @@
-<h2>Pagamento</h2>
+<div class="checkout-wrapper">
 
-<div *ngIf="!success; else done">
+  <div class="checkout-card" *ngIf="!success; else done">
 
-  <p>Totale da pagare: {{ cartService.getTotal() | currency }}</p>
+    <h2>Pagamento</h2>
 
-  <button (click)="confirmPayment()" [disabled]="processing">
-    {{ processing ? 'Elaborazione...' : 'Paga ora' }}
-  </button>
+    <p class="total">
+      Totale da pagare:
+      <strong>{{ total | currency:'EUR' }}</strong>
+    </p>
+
+    <button class="pay-btn"
+            (click)="confirmPayment()"
+            [disabled]="processing">
+      {{ processing ? '⏳ Elaborazione...' : 'Paga ora' }}
+    </button>
+
+  </div>
 
 </div>
 
 <ng-template #done>
-  <h3>Pagamento completato!</h3>
-  <p>Stai venendo reindirizzato al catalogo...</p>
+  <div class="checkout-wrapper">
+    <div class="checkout-card success">
+      <h2>✔ Pagamento completato!</h2>
+      <p>Stai venendo reindirizzato al catalogo...</p>
+    </div>
+  </div>
 </ng-template>

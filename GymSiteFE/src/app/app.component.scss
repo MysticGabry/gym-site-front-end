@@ -1,3 +1,4 @@
+@import '../styles/config';
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -173,3 +174,79 @@
   padding: 2px 6px;
   border-radius: 50%;
 }
+.guest-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.register-btn {
+  background: $secondary-color;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+
+  &:hover {
+    background: lighten($secondary-color, 8%);
+  }
+}
+
+
+.user-btn {
+  background: #444;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  .arrow {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+}
+
+.dropdown {
+  background: #1f1f1f;
+  padding: 10px 0;
+  border-radius: 10px;
+  min-width: 180px;
+  position: absolute;
+  right: 0;
+  top: 42px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+
+  a {
+    display: block;
+    padding: 10px 16px;
+    color: #ddd;
+
+    &:hover {
+      background: #333;
+      color: #0cee56;
+    }
+  }
+
+  .logout-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: #ff4a4a;
+    cursor: pointer;
+
+    &:hover {
+      background: #330000;
+    }
+  }
+
+  hr {
+    margin: 8px 0;
+    border-color: #333;
+  }
+}
+

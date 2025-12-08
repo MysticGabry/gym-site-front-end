@@ -1,4 +1,69 @@
-h1 {
+@import '../styles/config';
+
+.profile-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 20px;
+  color: white;
+}
+
+.profile-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.section-box {
+  background: $card-bg;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  margin-bottom: 25px;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i {
+      color: $secondary-color;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
-  font-size: 28px;
+
+  label {
+    margin-bottom: 5px;
+    color: white;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    background: white;
+  }
+}
+
+.btn-primary {
+  background: $secondary-color;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 5px;
+  transition: 0.2s;
+
+  &:hover {
+    background: lighten($secondary-color, 8%);
+  }
 }

@@ -1,7 +1,7 @@
-import {CartItem} from '../models/cart-item.model';
-import {Product} from '../models/product.model';
-import {BehaviorSubject} from 'rxjs';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { CartItem } from '../models/cart-item.model';
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +20,20 @@ export class CartService {
     return `cart_${userId}`;
   }
 
+  reloadCart(): void {
+    this.loadCart();
+  }
 
-  private loadCart() {
+  private loadCart(): void {
     const data = localStorage.getItem(this.getCartKey());
     if (data) {
       this.itemsSubject.next(JSON.parse(data));
+    } else {
+      this.itemsSubject.next([]);
     }
   }
 
-  private saveCart(cart: CartItem[]) {
+  private saveCart(cart: CartItem[]): void {
     localStorage.setItem(this.getCartKey(), JSON.stringify(cart));
     this.itemsSubject.next(cart);
   }
@@ -37,7 +42,7 @@ export class CartService {
     return this.itemsSubject.getValue();
   }
 
-  addToCart(product: Product, quantity: number) {
+  addToCart(product: Product, quantity: number): void {
     const cart = this.getCart();
     const existing = cart.find(i => i.product.id === product.id);
 
@@ -50,10 +55,9 @@ export class CartService {
     this.saveCart(cart);
   }
 
-  removeItem(productId: number) {
+  removeItem(productId: number): void {
     const cart = this.getCart();
     const item = cart.find(i => i.product.id === productId);
-
     if (!item) return;
 
     if (item.quantity > 1) {
@@ -65,19 +69,14 @@ export class CartService {
     this.saveCart(cart);
   }
 
-  clear() {
+  clear(): void {
     this.saveCart([]);
   }
 
   getTotal(): number {
-    return this.getCart().reduce((sum: number, item: CartItem) =>
-      sum + (Number(item.product.price) * Number(item.quantity)), 0
+    return this.getCart().reduce(
+      (sum: number, item: CartItem) =>
+        sum + (Number(item.product.price) * Number(item.quantity)), 0
     );
   }
-  reloadCart() {
-    const data = localStorage.getItem(this.getCartKey());
-    this.itemsSubject.next(data ? JSON.parse(data) : []);
-  }
-  //faccio sto commento giusto per essere sicuro della commit
-
 }

@@ -1,0 +1,54 @@
+<div class="order-detail-container" *ngIf="order">
+
+  <h1 class="title">Dettaglio Ordine #{{ order.id }}</h1>
+
+  <p class="date">
+    <strong>Data:</strong>
+    {{ order.createdAt | date:'dd/MM/yyyy, HH:mm' }}
+  </p>
+
+  <h2 class="section-title">Articoli</h2>
+
+  <div class="items-list">
+
+    <div class="item-card" *ngFor="let item of order.items">
+
+      <img
+        class="product-img"
+        [src]="item.product.imageUrl"
+        alt="{{ item.product.name }}"
+      />
+
+      <div class="info">
+        <h3>{{ item.product.name }}</h3>
+
+        <p class="desc">{{ item.product.description }}</p>
+
+        <p class="qty">
+          Quantità: <strong>{{ item.quantity }}</strong>
+        </p>
+
+        <p class="price">
+          Prezzo: <strong>{{ item.product.price | currency:'EUR' }}</strong>
+        </p>
+
+        <p class="subtotal">
+          Subtotale:
+          <strong>
+            {{ item.product.price * item.quantity | currency:'EUR' }}
+          </strong>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="total-box">
+    Totale Ordine:
+    <strong>{{ calculateTotal() | currency:'EUR' }}</strong>
+  </div>
+
+  <button class="btn-back" routerLink="/orders">⬅ Torna ai tuoi ordini</button>
+
+</div>

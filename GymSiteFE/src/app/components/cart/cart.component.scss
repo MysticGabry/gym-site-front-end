@@ -1,3 +1,21 @@
+@import '../styles/config';
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px 18px;
+  background: $secondary-color;
+  color: $primary-color;
+  border: none;
+  border-radius: $border-radius;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background $transition-speed ease;
+
+  &:hover {
+    background: lighten($secondary-color, 8%);
+  }
+}
+
 .cart-title {
   text-align: center;
   font-size: 2rem;
@@ -41,7 +59,7 @@
 
   .item-desc {
     font-size: 0.9rem;
-    color: #444;
+    color: #aaa;
     margin: 5px 0;
   }
 
@@ -65,7 +83,6 @@
   }
 }
 
-
 .clear-container {
   max-width: 900px;
   margin: 0 auto 10px auto;
@@ -88,13 +105,11 @@
   }
 }
 
-/* LINEA */
 .divider {
   max-width: 900px;
   margin: 20px auto;
 }
 
-/* RIEPILOGO */
 .cart-summary {
   text-align: center;
   margin-top: 20px;
@@ -110,20 +125,20 @@
 }
 
 .btn-checkout {
-  background: #4CAF50;
-  color: white;
+  background: $secondary-color;
+  color: $primary-color;
   padding: 12px 22px;
-  border-radius: 6px;
+  border-radius: $border-radius;
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+  font-weight: bold;
 
   &:hover {
-    background: #4CAF50;
+    background: lighten($secondary-color, 8%);
   }
 }
 
-/* SE VUOTO */
 .empty {
   text-align: center;
   margin-top: 40px;

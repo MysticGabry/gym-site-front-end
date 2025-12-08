@@ -1,5 +1,27 @@
-<h1>Profilo Utente</h1>
+<h1 class="profile-title">Profilo Utente</h1>
 
-<p>
-  Qui puoi gestire le informazioni del tuo account
-</p>
+<div class="profile-container">
+
+  <div class="section-box">
+    <h2><i class="fa fa-user"></i> Informazioni Utente</h2>
+
+    <p><strong>Username:</strong> {{ username }}</p>
+
+    <div class="form-row">
+      <label>Nuova Email</label>
+      <input type="email" [(ngModel)]="newEmail" placeholder="Inserisci nuova email"/>
+      <button class="btn-primary" (click)="updateEmail()">Aggiorna Email</button>
+    </div>
+
+    <div class="form-row">
+      <label>Vecchia Password</label>
+      <input type="password" [(ngModel)]="oldPassword" />
+
+      <label>Nuova Password</label>
+      <input type="password" [(ngModel)]="newPassword" />
+
+      <button class="btn-primary" (click)="updatePassword()">Cambia Password</button>
+    </div>
+  </div>
+
+</div>

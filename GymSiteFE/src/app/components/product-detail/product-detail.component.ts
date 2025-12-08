@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
@@ -36,16 +36,33 @@ export class ProductDetailComponent implements OnInit {
 
         this.cdr.detectChanges();
       },
-      error: err => console.error("Errore nel caricamento prodotto:", err)
+      error: err => console.error('Errore nel caricamento prodotto:', err)
     });
   }
 
-  buyNow(product: Product) {
-    this.cartService.addToCart(product, 1);
-    this.router.navigate(['/checkout']);
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 
-  addToCart(product: Product) {
+  buyNow(product: Product): void {
+    if (!this.authService.isAuthenticated() || this.authService.isAdmin) {
+      this.goToLogin();
+      return;
+    }
+
+    this.router.navigate(['/checkout'], {
+      state: {
+        buyNow: { product, quantity: 1 }
+      }
+    });
+  }
+
+  addToCart(product: Product): void {
+    if (!this.authService.isAuthenticated() || this.authService.isAdmin) {
+      this.goToLogin();
+      return;
+    }
+
     this.cartService.addToCart(product, 1);
     alert(`${product.name} è stato aggiunto al carrello!`);
   }

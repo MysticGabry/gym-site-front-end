@@ -11,10 +11,15 @@
 
   <p class="description">{{ product.description }}</p>
 
-  <!-- PULSANTI VISIBILI SOLO PER UTENTI NORMALI -->
-  <div class="actions" *ngIf="!authService.isAdmin">
+  <!-- Utente loggato -->
+  <div class="actions" *ngIf="authService.isAuthenticated() && !authService.isAdmin">
     <button class="btn-buy" (click)="buyNow(product)">Compra Subito</button>
     <button class="btn-cart" (click)="addToCart(product)">Aggiungi al Carrello</button>
+  </div>
+
+  <!-- Utente NON loggato -->
+  <div class="actions" *ngIf="!authService.isAuthenticated()">
+    <button class="btn-buy disabled" (click)="goToLogin()">Accedi per acquistare</button>
   </div>
 
 </div>

@@ -1,0 +1,94 @@
+@import '../styles/config';
+
+.order-detail-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: $secondary-color;
+  margin-bottom: 20px;
+}
+
+.date {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  margin: 15px 0;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item-card {
+  display: flex;
+  gap: 20px;
+  background: $card-bg;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+
+  .product-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .info {
+    flex-grow: 1;
+
+    h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.3rem;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .qty, .price, .subtotal {
+      margin-top: 6px;
+      font-size: 1rem;
+
+      strong {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+.total-box {
+  margin-top: 25px;
+  font-size: 1.4rem;
+  text-align: right;
+
+  strong {
+    color: $secondary-color;
+  }
+}
+
+.btn-back {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: $secondary-color;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background: lighten($secondary-color, 8%);
+  }
+}

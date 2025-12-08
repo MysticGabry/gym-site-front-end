@@ -6,29 +6,27 @@ import {AdminGuard} from './guards/admin.guard';
 import {PublicGuard} from './models/public.guard';
 import {ADMIN_ROUTES} from './admin/admin.routes';
 import {UserGuard} from './guards/user.guard';
+import {OrdersComponent} from './components/orders/orders.component';
+import {OrderDetailComponent} from './components/order-detail/order-detail.component';
 
 export const routes: Routes = [
+
   {path: '', redirectTo: '/products', pathMatch: 'full'},
-
   {path: 'products', component: ProductListComponent, canActivate: [PublicGuard]},
-
   {
     path: 'products/:id',
     loadComponent: () =>
       import('./components/product-detail/product-detail.component')
         .then(m => m.ProductDetailComponent)
   },
-
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-
   {
     path: 'profile',
     loadComponent: () =>
       import('./components/profile/profile.component')
         .then(m => m.ProfileComponent)
   },
-
   {
     path: 'admin',
     canActivate: [AdminGuard],
@@ -40,13 +38,12 @@ export const routes: Routes = [
       import('./components/cart/cart.component')
         .then(m => m.CartComponent)
   },
-
   {
     path: 'checkout',
     loadComponent: () =>
       import('./components/checkout/checkout.component')
         .then(m => m.CheckoutComponent)
-  },{
+  }, {
     path: 'cart',
     loadComponent: () => import('./components/cart/cart.component').then(m => m.CartComponent),
     canActivate: [UserGuard]
@@ -56,6 +53,9 @@ export const routes: Routes = [
     loadComponent: () => import('./components/checkout/checkout.component').then(m => m.CheckoutComponent),
     canActivate: [UserGuard]
   },
+
+  { path: 'orders', component: OrdersComponent },
+  { path: 'orders/:id', component: OrderDetailComponent },
 
   {path: '**', redirectTo: 'products'}
 ];

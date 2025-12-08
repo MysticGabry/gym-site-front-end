@@ -1,4 +1,5 @@
 <nav class="navbar" *ngIf="showNavbar">
+
   <!-- LOGO -->
   <div class="nav-left">
     <a routerLink="/" class="logo">GymSite</a>
@@ -22,13 +23,29 @@
       Area Admin
     </a>
 
-    <!-- MENU UTENTE -->
-    <div class="user-menu" [class.open]="menuOpen">
-      <button (click)="toggleMenu()" class="user-btn">Account</button>
+    <!-- SE NON È LOGGATO -->
+    <div *ngIf="!authService.isAuthenticated()" class="guest-links">
+      <a routerLink="/login" class="nav-item">Login</a>
+      <a routerLink="/register" class="nav-item register-btn">Registrati</a>
+    </div>
+
+    <!-- SE È LOGGATO -->
+    <div *ngIf="authService.isAuthenticated()" class="user-menu" [class.open]="menuOpen">
+
+      <button (click)="toggleMenu()" class="user-btn">
+        👤 {{ username }}
+        <span class="arrow"></span>
+      </button>
 
       <div class="dropdown" *ngIf="menuOpen">
-        <a routerLink="/profile" (click)="toggleMenu()">Profilo</a>
-        <button (click)="onLogout()">Logout</button>
+
+        <a routerLink="/profile" (click)="toggleMenu()">⚙️ Impostazioni</a>
+        <a routerLink="/orders" (click)="toggleMenu()">📦 I miei ordini</a>
+
+        <hr>
+
+        <button class="logout-btn" (click)="onLogout()">🚪 Logout</button>
+
       </div>
     </div>
 
