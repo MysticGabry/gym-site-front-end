@@ -1,69 +1,119 @@
 @import '../styles/config';
 
-.profile-title {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-top: 20px;
-  color: white;
-}
-
+/* CONTAINER PRINCIPALE */
 .profile-container {
-  max-width: 600px;
-  margin: 30px auto;
+  max-width: 700px;
+  margin: 40px auto;
   padding: 20px;
 }
 
+/* TITOLO PAGINA */
+.profile-title {
+  text-align: center;
+  font-size: 2rem;
+  color: $secondary-color;
+  margin-bottom: 25px;
+}
+
+/* SEZIONI */
 .section-box {
   background: $card-bg;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
 
   h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 1.4rem;
+    color: $secondary-color;
+    margin-bottom: 10px;
+  }
+}
 
-    i {
-      color: $secondary-color;
+/* TITOLI SEZIONI */
+.section-title {
+  color: lighten($secondary-color, 10%);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(255,255,255,0.08);
+}
+
+/* FORM GROUP */
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: white;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: darken($card-bg, 6%);
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: 2px solid $secondary-color;
     }
   }
 }
 
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+/* PASSWORD GROUP */
+.password-group {
+  .password-wrapper {
+    position: relative;
 
-  label {
-    margin-bottom: 5px;
-    color: white;
-    font-weight: bold;
-  }
+    input {
+      padding-right: 45px;
+      height: 48px;
+    }
 
-  input {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    margin-bottom: 10px;
-    background: white;
+    .toggle-password-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: lighten($text-light, 20%);
+      transition: color 0.2s;
+
+      i {
+        pointer-events: none;
+      }
+
+      &:hover {
+        color: lighten($secondary-color, 15%);
+      }
+    }
   }
 }
 
+/* BOTTONI PRINCIPALI */
 .btn-primary {
+  width: 100%;
+  padding: 14px;
   background: $secondary-color;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+  color: white;
   font-weight: bold;
-  margin-top: 5px;
-  transition: 0.2s;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+  margin-top: 10px;
 
   &:hover {
     background: lighten($secondary-color, 8%);
+    transform: translateY(-2px);
   }
 }

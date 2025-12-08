@@ -15,27 +15,25 @@
 
       <img
         class="product-img"
-        [src]="item.product.imageUrl"
-        alt="{{ item.product.name }}"
+        [src]="item.productImage"
+        alt="{{ item.productName }}"
       />
 
       <div class="info">
-        <h3>{{ item.product.name }}</h3>
-
-        <p class="desc">{{ item.product.description }}</p>
+        <h3>{{ item.productName }}</h3>
 
         <p class="qty">
           Quantità: <strong>{{ item.quantity }}</strong>
         </p>
 
         <p class="price">
-          Prezzo: <strong>{{ item.product.price | currency:'EUR' }}</strong>
+          Prezzo: <strong>{{ item.price | currency:'EUR' }}</strong>
         </p>
 
         <p class="subtotal">
           Subtotale:
           <strong>
-            {{ item.product.price * item.quantity | currency:'EUR' }}
+            {{ item.price * item.quantity | currency:'EUR' }}
           </strong>
         </p>
       </div>
@@ -51,4 +49,8 @@
 
   <button class="btn-back" routerLink="/orders">⬅ Torna ai tuoi ordini</button>
 
+</div>
+
+<div *ngIf="!order" class="loading">
+  Caricamento ordine in corso...
 </div>

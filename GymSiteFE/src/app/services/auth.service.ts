@@ -14,6 +14,8 @@ export class AuthService {
   private TOKEN_KEY = 'auth_token';
   private ROLE_KEY = 'user_role';
   private USER_ID_KEY = 'user_id';
+  private EMAIL_KEY = 'user_email';
+
 
   constructor(
     private http: HttpClient,
@@ -44,9 +46,9 @@ export class AuthService {
     localStorage.setItem(this.ROLE_KEY, response.role);
     localStorage.setItem(this.USER_ID_KEY, response.username);
 
-    // Ricarica il carrello legato a questo utente
     this.cartService.reloadCart();
   }
+
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
@@ -73,4 +75,5 @@ export class AuthService {
   get username(): string | null {
     return localStorage.getItem(this.USER_ID_KEY);
   }
+
 }

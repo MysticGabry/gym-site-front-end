@@ -1,29 +1,58 @@
-<h2>{{ isEdit ? '✏️ Modifica Prodotto' : '➕ Aggiungi Prodotto' }}</h2>
+<div class="admin-container">
 
-<form [formGroup]="form" (ngSubmit)="saveProduct()">
+  <div class="product-form-card">
 
-  <label>Nome</label>
-  <input type="text" formControlName="name">
+    <h2 class="page-title">
+      {{ isEdit ? '✏️ Modifica Prodotto' : '➕ Aggiungi Prodotto' }}
+    </h2>
 
-  <label>Descrizione</label>
-  <textarea formControlName="description"></textarea>
+    <form [formGroup]="form" (ngSubmit)="saveProduct()" class="product-form">
 
-  <label>Prezzo</label>
-  <input type="number" formControlName="price">
+      <!-- NOME -->
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input id="name" type="text" formControlName="name">
+      </div>
 
-  <label>Stock</label>
-  <input type="number" formControlName="stock">
+      <!-- DESCRIZIONE -->
+      <div class="form-group">
+        <label for="description">Descrizione</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
 
-  <label>Immagine (URL)</label>
-  <input type="text" formControlName="imageUrl">
+      <!-- PREZZO -->
+      <div class="form-group">
+        <label for="price">Prezzo</label>
+        <input id="price" type="number" formControlName="price">
+      </div>
 
-  <!-- Preview immagine -->
-  <img *ngIf="form.value.imageUrl"
-       [src]="form.value.imageUrl"
-       class="preview-img" />
+      <!-- STOCK -->
+      <div class="form-group">
+        <label for="stock">Stock</label>
+        <input id="stock" type="number" formControlName="stock">
+      </div>
 
-  <button type="submit" [disabled]="form.invalid">
-    {{ isEdit ? 'Aggiorna' : 'Crea' }}
-  </button>
+      <!-- URL IMMAGINE -->
+      <div class="form-group">
+        <label for="imageUrl">Immagine (URL)</label>
+        <input id="imageUrl" type="text" formControlName="imageUrl">
+      </div>
 
-</form>
+      <!-- ANTEPRIMA IMMAGINE -->
+      <div class="image-preview-box" *ngIf="form.value.imageUrl">
+        <img
+          [src]="form.value.imageUrl"
+          alt="Anteprima immagine"
+          class="preview-img"
+        />
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="form.invalid">
+        {{ isEdit ? 'Aggiorna' : 'Crea' }}
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

@@ -46,12 +46,22 @@
 
     <div class="form-group password-group">
       <label for="password">Password</label>
-      <input
-        id="password"
-        [type]="hidePassword ? 'password' : 'text'"
-        formControlName="password"
-        placeholder="Inserisci la tua password"
-      />
+
+      <div class="password-wrapper">
+        <input
+          id="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Inserisci la tua password"
+        />
+
+        <button
+          type="button"
+          class="toggle-password-icon"
+          (click)="hidePassword = !hidePassword">
+          <i class="fa" [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
+      </div>
 
       <div
         *ngIf="f['password'].invalid && f['password'].touched"
@@ -60,7 +70,8 @@
           La password è obbligatoria.
         </div>
         <div *ngIf="f['password'].errors?.['minlength'] || f['password'].errors?.['pattern']">
-          La password deve essere di almeno 8 caratteri e contenere una maiuscola, una minuscola e un numero.
+          La password deve essere di almeno 8 caratteri e contenere una
+          maiuscola, una minuscola e un numero.
         </div>
       </div>
     </div>

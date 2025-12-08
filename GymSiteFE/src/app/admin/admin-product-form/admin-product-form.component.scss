@@ -1,113 +1,111 @@
+@import '../styles/config';
 
-:host {
-  display: block;
-  padding: 20px;
-  background-color: #f8f9fa; // Sfondo leggero
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.admin-container {
+  margin-left: 260px;           // stessa distanza del resto dell'area admin
+  padding: 30px 40px;
+  color: white;
 }
 
-h2 {
-  color: #343a40;
-  border-bottom: 2px solid #007bff; // Colore primario
-  padding-bottom: 10px;
-  margin-bottom: 25px;
-  font-size: 1.8rem;
+/* Card centrale del form */
+.product-form-card {
+  max-width: 520px;
+  background: $card-bg;
+  border-radius: 14px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+  padding: 25px 30px 30px;
 }
 
-form {
-  display: grid;
-  // Layout su due colonne per schermi grandi
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px; // Spazio tra gli elementi del grid
+/* Titolo dentro la card, allineato a sinistra */
+.page-title {
+  font-size: 2.1rem;
+  margin: 0 0 15px 0;
+  color: $secondary-color;
 }
 
-label {
-  display: block; // Assicura che la label prenda tutta la larghezza
-  font-weight: 600;
-  color: #495057;
-  margin-bottom: 5px;
-  grid-column: span 1; // Le label occupano una colonna
+/* Form */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-input:not([type="submit"]),
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px; // Spazio sotto l'input/textarea
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  box-sizing: border-box; // Include padding e border nella larghezza totale
-  transition: border-color 0.2s ease-in-out;
-  font-size: 1rem;
+/* Gruppi di input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 
-  &:focus {
-    border-color: #007bff; // Bordo blu quando si è in focus
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
+  label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    border-radius: 8px;
+    border: none;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    background: #ffffff;
+    color: #111;
+
+    &:focus {
+      outline: 2px solid $secondary-color;
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
   }
 }
 
-textarea {
-  resize: vertical; // Permette solo il ridimensionamento verticale
-  min-height: 100px;
-  grid-column: 1 / -1; // La textarea occupa tutta la larghezza
-}
-
-/* Gestione degli input numerici (Prezzo e Stock) */
-input[type="number"] {
-  // Stile specifico se necessario
-}
-
-/* Stile per l'input Immagine */
-input[formControlName="imageUrl"] {
-  grid-column: span 1;
-}
-
-/* Stile per l'Anteprima Immagine */
-.preview-img {
-  max-width: 200px;
-  max-height: 200px;
-  width: auto;
-  height: auto;
-  display: block;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  object-fit: contain;
+/* Anteprima immagine */
+.image-preview-box {
   margin-top: 10px;
-  margin-bottom: 20px;
-  grid-column: 1 / -1;
+  text-align: center;
+
+  .preview-img {
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+  }
 }
 
-/* Stile del pulsante Salva */
-button[type="submit"] {
-  grid-column: 1 / -1; // Occupa tutta la larghezza alla fine del form
-  background-color: #4CAF50; // Verde per l'azione di salvataggio
-  color: lightgray;
-  padding: 12px 20px;
+/* Bottone submit */
+.submit-btn {
+  margin-top: 10px;
+  align-self: flex-end;
+  background: $secondary-color;
+  color: #000;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1.1rem;
+  border-radius: 999px;
+  padding: 9px 22px;
   font-weight: 600;
-  transition: background-color 0.2s ease-in-out;
-  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 
-  &:hover {
-    background-color: #4CAF50; // Verde scuro al passaggio del mouse
+  &:hover:not(:disabled) {
+    background: lighten($secondary-color, 6%);
+    transform: translateY(-1px);
   }
 
   &:disabled {
-    background-color: #6c757d; // Grigio quando disabilitato
+    opacity: 0.5;
     cursor: not-allowed;
   }
 }
 
-@media (max-width: 768px) {
-  form {
-    grid-template-columns: 1fr;
+/* Un minimo di responsive */
+@media (max-width: 900px) {
+  .admin-container {
+    margin-left: 0;
+    padding: 20px;
   }
-  label, input, textarea, button[type="submit"], .preview-img {
-    grid-column: 1;
+
+  .product-form-card {
+    max-width: 100%;
   }
 }

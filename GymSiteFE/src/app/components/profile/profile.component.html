@@ -2,26 +2,83 @@
 
 <div class="profile-container">
 
+  <!-- INFO UTENTE -->
   <div class="section-box">
     <h2><i class="fa fa-user"></i> Informazioni Utente</h2>
-
     <p><strong>Username:</strong> {{ username }}</p>
+  </div>
 
-    <div class="form-row">
-      <label>Nuova Email</label>
-      <input type="email" [(ngModel)]="newEmail" placeholder="Inserisci nuova email"/>
-      <button class="btn-primary" (click)="updateEmail()">Aggiorna Email</button>
+  <!-- CAMBIA EMAIL -->
+  <div class="section-box">
+    <h3 class="section-title">📧 Cambia Email</h3>
+
+    <div class="form-group">
+      <label for="newEmail">Nuova Email</label>
+
+      <input
+        id="newEmail"
+        type="email"
+        [(ngModel)]="newEmail"
+        placeholder="Inserisci nuova email"
+      />
     </div>
 
-    <div class="form-row">
-      <label>Vecchia Password</label>
-      <input type="password" [(ngModel)]="oldPassword" />
+    <button class="btn-primary" (click)="updateEmail()">
+      Aggiorna Email
+    </button>
+  </div>
 
-      <label>Nuova Password</label>
-      <input type="password" [(ngModel)]="newPassword" />
+  <!-- CAMBIA PASSWORD -->
+  <div class="section-box">
+    <h3 class="section-title">🔒 Cambia Password</h3>
 
-      <button class="btn-primary" (click)="updatePassword()">Cambia Password</button>
+    <!-- VECCHIA PASSWORD -->
+    <div class="form-group password-group">
+      <label for="oldPw">Vecchia Password</label>
+
+      <div class="password-wrapper">
+        <input
+          id="oldPw"
+          [type]="showOldPw ? 'text' : 'password'"
+          [(ngModel)]="oldPassword"
+          placeholder="Inserisci la vecchia password"
+        />
+
+        <button
+          type="button"
+          class="toggle-password-icon"
+          (click)="showOldPw = !showOldPw"
+        >
+          <i class="fa" [ngClass]="showOldPw ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+      </div>
     </div>
+
+    <!-- NUOVA PASSWORD -->
+    <div class="form-group password-group">
+      <label for="newPw">Nuova Password</label>
+
+      <div class="password-wrapper">
+        <input
+          id="newPw"
+          [type]="showNewPw ? 'text' : 'password'"
+          [(ngModel)]="newPassword"
+          placeholder="Inserisci la nuova password"
+        />
+
+        <button
+          type="button"
+          class="toggle-password-icon"
+          (click)="showNewPw = !showNewPw"
+        >
+          <i class="fa" [ngClass]="showNewPw ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-primary" (click)="updatePassword()">
+      Cambia Password
+    </button>
   </div>
 
 </div>

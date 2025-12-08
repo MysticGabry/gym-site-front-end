@@ -1,115 +1,113 @@
-$primary-color: #4CAF50; // Verde per le azioni positive (es. Aggiungi)
-$danger-color: #DC3545;  // Rosso per le azioni distruttive (es. Elimina)
-$info-color: #007BFF;    // Blu per le azioni neutre/modifica
-$text-color: #E0E0E0;    // Testo chiaro su sfondo scuro
-$bg-dark: #333333;       // Sfondo scuro della pagina
-$bg-light: #444444;      // Sfondo leggermente più chiaro per gli elementi
+@import '../styles/config';
 
-:host {
-  display: block;
-  padding: 30px;
-  color: $text-color;
-  background-color: $bg-dark; // Sfondo scuro come nel tuo screenshot
-}
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
 
-h2 {
-  color: $text-color;
-  margin-bottom: 25px;
-  border-bottom: 2px solid $bg-light;
-  padding-bottom: 10px;
-}
+  h2 {
+    text-align: center;
+    color: $secondary-color;
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
 
-.create-btn {
-  background-color: $primary-color;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 25px;
-  transition: background-color 0.2s ease;
+  .create-btn {
+    display: inline-block;
+    padding: 12px 18px;
+    margin-bottom: 20px;
 
-  &:hover {
-    background-color: darken($primary-color, 8%);
+    background: $secondary-color;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s;
+
+    &:hover {
+      background: lighten($secondary-color, 8%);
+      transform: translateY(-2px);
+    }
   }
 }
 
-/* --- Tabella Principale (product-table) --- */
+/* ──────────────────────────────── */
+/* TABELLA                          */
+/* ──────────────────────────────── */
+
 .product-table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); // Ombra per farla risaltare
+  background: $card-bg;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
 
   th, td {
-    padding: 15px 10px;
+    padding: 14px 16px;
     text-align: left;
-    border-bottom: 1px solid $bg-light;
-    vertical-align: middle;
-    font-size: 0.95em;
+    color: white;
   }
 
-  /* Intestazioni */
-  thead th {
-    background-color: $bg-light;
-    color: $text-color;
-    text-transform: uppercase;
-    font-weight: 600;
+  th {
+    background: darken($card-bg, 4%);
+    font-weight: bold;
+    font-size: 1rem;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
   }
 
-  /* Righe del corpo */
-  tbody tr:hover {
-    background-color: rgba($bg-light, 0.5);
+  tr {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+    }
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.15);
   }
 }
 
-/* Immagini Miniature (thumbnail) */
-.thumbnail {
-  width: 60px;  // Dimensione fissa piccola
-  height: 60px;
-  object-fit: cover; // Importante: ritaglia l'immagine senza distorcerla
-  border-radius: 4px;
-  border: 1px solid rgba($text-color, 0.1);
-}
+/* ──────────────────────────────── */
+/* BOTTONI AZIONI                   */
+/* ──────────────────────────────── */
 
-/* --- Colonna Azioni (Contiene i pulsanti) --- */
-.product-table td:last-child {
-  display: flex;
-  gap: 8px; /* Spazio tra i pulsanti Modifica ed Elimina */
-  align-items: center;
-  min-width: 150px; /* Assicura spazio sufficiente per i due pulsanti */
-}
-
-/* --- Pulsanti di Azione --- */
-
-// Pulsante Modifica
-.edit-btn {
-  background-color: $info-color;
-  color: white;
+.edit-btn,
+.delete-btn {
+  padding: 8px 14px;
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85em;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: 0.2s;
+}
+
+.edit-btn {
+  background: lighten($secondary-color, 8%);
+  color: white;
 
   &:hover {
-    background-color: darken($info-color, 8%);
+    background: $secondary-color;
   }
 }
 
 .delete-btn {
-  background-color: $danger-color;
+  background: #d64545;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85em;
-  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: darken($danger-color, 8%);
+    background: darken(#d64545, 10%);
   }
 }

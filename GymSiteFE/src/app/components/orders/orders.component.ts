@@ -19,7 +19,6 @@ export class OrdersComponent implements OnInit {
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
-
   ngOnInit(): void {
 
     this.orderService.getMyOrders().subscribe({
