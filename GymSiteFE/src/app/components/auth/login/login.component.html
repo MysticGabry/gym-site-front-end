@@ -28,26 +28,25 @@
 
     <div class="form-group password-group">
       <label for="password">Password</label>
-      <input
-        id="password"
-        [type]="hidePassword ? 'password' : 'text'"
-        formControlName="password"
-        placeholder="Ciao.1234"
-      />
 
+      <div class="password-wrapper">
+        <input
+          id="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Inserisci la tua password"
+        />
 
-      <div
-        *ngIf="f['password'].invalid && f['password'].touched"
-        class="error-message">
-        <div *ngIf="f['password'].errors?.['required']">
-          La password è obbligatoria.
-        </div>
+        <button
+          type="button"
+          class="toggle-password-icon"
+          (click)="hidePassword = !hidePassword">
+          <i class="fa" [ngClass]="hidePassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </button>
       </div>
-    </div>
-
-    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">
-      Accedi
-    </button>
+    </div> <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">
+    Accedi
+  </button>
   </form>
 
   <p class="mt-3">

@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
 })

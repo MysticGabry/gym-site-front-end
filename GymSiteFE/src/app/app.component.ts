@@ -28,18 +28,14 @@ export class AppComponent {
 
   constructor() {
 
-    // Mostra / nasconde navbar su login e register
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         const url = event.urlAfterRedirects;
         this.showNavbar = !(url.includes('/login') || url.includes('/register'));
-
-        // Aggiorna username dopo navigazione (es. dopo login)
         this.username = this.authService.username ?? 'Ospite';
       });
 
-    // Aggiorna conteggio carrello
     this.cartService.items$.subscribe(items => {
       this.cartCount = items.reduce((sum, i) => sum + i.quantity, 0);
     });

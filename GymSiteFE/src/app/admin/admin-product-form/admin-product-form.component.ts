@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product.model';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProductService} from '../../services/product.service';
+import {Product} from '../../models/product.model';
 
 @Component({
   selector: 'app-admin-product-form',
@@ -23,7 +23,8 @@ export class AdminProductFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -36,16 +37,13 @@ export class AdminProductFormComponent implements OnInit {
       imageUrl: ['']
     });
 
-    // Controllo se sono in modalità EDIT
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
       this.productId = Number(id);
       this.isEdit = true;
-
-      // Carico il prodotto
       this.productService.getProductById(this.productId).subscribe(p => {
-        this.form.patchValue(p);  // carica i valori nel form
+        this.form.patchValue(p);
       });
     }
   }

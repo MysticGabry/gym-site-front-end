@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import {provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS, withInterceptors} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import { routes } from './app.routes';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 

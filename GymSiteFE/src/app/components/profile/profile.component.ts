@@ -44,8 +44,8 @@ export class ProfileComponent implements OnInit {
   }
 
   updateEmail() {
-    this.http.put('http://localhost:8080/api/users/update-email', {
-      newEmail: this.newEmail
+    this.http.put('http://localhost:8080/api/user/email', {
+      email: this.newEmail
     }).subscribe({
       next: () => {
         alert("Email aggiornata!");
@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePassword() {
-    this.http.put('http://localhost:8080/api/users/update-password', {
+    this.http.put('http://localhost:8080/api/user/password', {
       oldPassword: this.oldPassword,
       newPassword: this.newPassword
     }).subscribe({

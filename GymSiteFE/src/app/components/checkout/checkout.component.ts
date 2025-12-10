@@ -23,7 +23,6 @@ export class CheckoutComponent {
   processing = false;
   success = false;
 
-  // Dati per "Compra Subito" (se presenti nello state)
   buyNowData: { product: any, quantity: number } | null = history.state['buyNow'] ?? null;
 
   constructor() {
@@ -48,13 +47,11 @@ export class CheckoutComponent {
     let payload: { productId: number; quantity: number }[];
 
     if (this.buyNowData) {
-      // Pagamento di un solo prodotto (Compra Subito)
       payload = [{
         productId: this.buyNowData.product.id,
         quantity: this.buyNowData.quantity
       }];
     } else {
-      // Pagamento dell’intero carrello
       const cart = this.cartService.getCart();
       payload = cart.map(item => ({
         productId: item.product.id,
@@ -65,7 +62,6 @@ export class CheckoutComponent {
     this.http.post('http://localhost:8080/api/products/checkout', payload)
       .subscribe({
         next: () => {
-          // se è un checkout del carrello, svuota
           if (!this.buyNowData) {
             this.cartService.clear();
           }

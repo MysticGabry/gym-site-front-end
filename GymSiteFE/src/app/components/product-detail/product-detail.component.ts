@@ -64,6 +64,5 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.cartService.addToCart(product, 1);
-    alert(`${product.name} è stato aggiunto al carrello!`);
   }
 }

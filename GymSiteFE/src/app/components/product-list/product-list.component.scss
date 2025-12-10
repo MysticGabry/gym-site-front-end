@@ -1,8 +1,4 @@
-// ===================================
-// 🛒 STILE CATALOGO PRODOTTI
-// ===================================
 
-// Riferimento alle variabili definite in app.component.scss
 $primary-color: #1a1a1a;
 $secondary-color: #0cee56;
 $text-light: #ffffff;
@@ -28,21 +24,13 @@ $transition-speed: 0.3s;
   }
 }
 
-// ===================================
-// 🧱 GRIGLIA PRODOTTI
-// ===================================
-
 .product-grid {
   display: flex;
-  flex-wrap: wrap; // Permette alle schede di andare a capo
-  gap: $spacing-unit * 2; // Spazio tra le schede
-  justify-content: center; // Centra le schede nella griglia
-  padding: 0 $spacing-unit; // Padding laterale
+  flex-wrap: wrap;
+  gap: $spacing-unit * 2;
+  justify-content: center;
+  padding: 0 $spacing-unit;
 }
-
-// ===================================
-// 📦 SINGOLA SCHEDA PRODOTTO
-// ===================================
 
 .product-card {
   background-color: $card-bg;
@@ -54,7 +42,6 @@ $transition-speed: 0.3s;
   transition: transform $transition-speed ease, box-shadow $transition-speed ease;
   cursor: pointer;
 
-  // Effetto hover: la scheda si solleva leggermente
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba($secondary-color, 0.4); // Ombra leggermente colorata
@@ -95,12 +82,7 @@ $transition-speed: 0.3s;
   color: rgba($text-light, 0.7);
   font-size: 0.9rem;
   margin-bottom: $spacing-unit;
-  // Rendi il testo descrittivo leggermente meno visibile
-}
 
-// ===================================
-// 🏷️ FOOTER PRODOTTO (Prezzo/Disponibilità)
-// ===================================
 
 .product-footer {
   display: flex;
@@ -114,12 +96,12 @@ $transition-speed: 0.3s;
 .product-price {
   font-size: 1.5rem;
   font-weight: 800;
-  color: $secondary-color; // Prezzo in Blu Elettrico
+  color: $secondary-color;
 }
 
 .product-availability {
   font-size: 0.85rem;
-  color: rgba($text-light, 0.5); // Leggermente meno visibile
+  color: rgba($text-light, 0.5);
 }
 
 .no-products, .loading-error {

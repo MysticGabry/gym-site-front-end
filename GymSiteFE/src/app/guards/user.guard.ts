@@ -13,7 +13,7 @@ export class UserGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    // Se l'utente è admin → NON può accedere alla pagina
+    // Se l'utente è admin NON può accedere alla pagina
     if (this.authService.isAdmin) {
       this.router.navigate(['/admin']);
       return false;

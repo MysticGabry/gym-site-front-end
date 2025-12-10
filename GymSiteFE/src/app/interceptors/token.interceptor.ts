@@ -11,12 +11,10 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = authService.getToken();
 
-  // Se non c'è token non fa niente
   if (!token) {
     return next(req);
   }
 
-  // Evita di intercettare asset locali
   if (req.url.includes('/assets/')) {
     return next(req);
   }
