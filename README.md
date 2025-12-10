@@ -19,51 +19,6 @@ L’interfaccia è sviluppata in **Angular**, completamente responsive, con gest
 
 ---
 
-## 🧱 Architettura del progetto
-
-Struttura principale:
-
-src/
-│ index.html
-│ main.ts
-│ styles.scss
-│
-├── app/
-│ │ app.component.*
-│ │ app.config.ts
-│ │ app.routes.ts
-│ │
-│ ├── admin/
-│ │ │ admin.routes.ts
-│ │ │
-│ │ ├── admin-dashboard/
-│ │ ├── admin-product-form/
-│ │ └── admin-products/
-│ │
-│ ├── components/
-│ │ ├── auth/
-│ │ │ ├── login/
-│ │ │ └── register/
-│ │ │
-│ │ ├── cart/
-│ │ ├── checkout/
-│ │ ├── order-detail/
-│ │ ├── orders/
-│ │ ├── placeholder/
-│ │ ├── product-detail/
-│ │ ├── product-list/
-│ │ └── profile/
-│ │
-│ ├── guards/ → Rotte protette (admin/user/public)
-│ ├── interceptors/ → token.interceptor.ts
-│ ├── models/ → Classi TS per Auth, User, Product, CartItem
-│ └── services/ → Auth, Cart, Product, Order, Api wrapper
-│
-└── assets/
-favicon.ico
-
----
-
 # 🔐 Autenticazione JWT
 
 L’app utilizza un **Token Interceptor** per:
